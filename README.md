@@ -1,7 +1,7 @@
 pbscrap
 =======
 
-A simple scraper <pastebin.com>.
+A simple scraper <https://pastebin.com>.
 
 `pbscrap` is a utility that reads pastebin.com looking for posts that contain
 the required words or phrases.
