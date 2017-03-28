@@ -8,18 +8,20 @@ Execute `pbscrap -h` for inline help.
 `pbscrap` will require at least one of these two arguments:
 
 * `-q` or `--query`
-    To indicate a list of queries. If a query consists of two words, you must enter quotation marks. In this way:
+    To indicate a list of queries. If a query consists of two words, you must
+    enter quotation marks. In this way:
 
     pbscrap -q aquery 'second multiword query'
 
 * `-i` or `--infile`
-    To indicate a file containing a list of queries. Each line in the file represents a query.
+    To indicate a file containing a list of queries. Each line in the file
+    represents a query.
 
-    cat /home/user/myqueries
-    aquery
-    second multiword query
+        cat /home/user/myqueries
+        aquery
+        second multiword query
 
-    pbscrap -i /home/user/myqueries
+        pbscrap -i /home/user/myqueries
 
 The -q and -i options can be used simultaneously without problems.
 
