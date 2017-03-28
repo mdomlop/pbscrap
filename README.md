@@ -3,8 +3,8 @@ pbscrap
 
 A simple scraper pastebin.com.
 
-Pbscrap is a utility that reads pastebin.com looking for posts that contain the
-required words or phrases.
+`pbscrap` is a utility that reads pastebin.com looking for posts that contain
+the required words or phrases.
 
 If a query is successful, the post is stored under a directory with the name of
 the query.
