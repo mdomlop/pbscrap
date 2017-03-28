@@ -1,9 +1,9 @@
 pbscrap
 =======
 
-A simple scraper <https://pastebin.com>.
+A simple scraper for <https://pastebin.com>.
 
-`pbscrap` is a utility that reads pastebin.com looking for posts that contain
+`pbscrap` is a utility that reads `pastebin.com` looking for posts that contain
 the required words or phrases.
 
 If a query is successful, the post is stored under a directory with the name of
@@ -20,4 +20,4 @@ hours or days.
 If no output directory is specified, all these files will be written to the
 working directory from where the program was called.
 
-For more information read the file USAGE.md
+For more information read the file [USAGE.md](https://github.com/manueldl/pbscrap/blob/master/USAGE.md)
