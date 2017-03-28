@@ -52,7 +52,7 @@ are case insensitive.
     Without this option storing will be done in current directory.
 
 * `-v` or `--verbose`
-    To print text by standard output.
+    To print log text to standard output.
 
 ## Examples
 
