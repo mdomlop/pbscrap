@@ -29,13 +29,14 @@ are case insensitive.
 ## Optional arguments
 
 * `-f` or `--frequence`
-    To indicate a frequency in seconds, minutes, hours or days.
+    To set a execution frequency in seconds, minutes, hours or days.
 
     Without this option the program will run only once. Otherwise it will
     remain in execution until you finish it manually.
 
-    To set the frequency in seconds indicates an integer greater than 0.
-    To do so in minutes add m to that number, h for hours and d to do it in days
+    To set the frequency in seconds, indicate an integer greater than 0.  To
+    do so in minutes, add `m` to that number, `h` for hours, and `d` to do it
+    in days.
 
     The program will print a warning if the frequency is very low, since in
     this circumstance it is possible to be banned by the server pastebin.com.
@@ -50,3 +51,20 @@ are case insensitive.
 
 * `-v` or `--verbose`
     To print text by standard output.
+
+## Examples
+
+To search por `perl` content every 2 minutes (results will be stored in
+ current directory):
+
+    $ pbscrap -q perl -f 2m
+
+Same but storing in `/tmp/OUT`. Directory will be created if not exists.
+
+    $ pbscrap -q perl -f 2m -o /tmp/OUT
+
+For search `perl`, `honey bunny`, and the contents of `/home/user/things`,
+outputting files to `/tmp/OUTDIR`, every 1 hour, with verbose messages to
+terminal.
+
+    $ pbscrap -q perl 'honey bunny' -f 1h -o /tmp/OUT -v -i /home/user/things

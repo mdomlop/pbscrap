@@ -193,6 +193,9 @@ else:
     args.query = set(args.query)  # Removing duplicates
     if args.frequence:
         freq = toseconds(args.frequence)
+        if freq < 1:
+            print('Sorry. Minimum frequence of execution is 1.\nExiting...\n')
+            sys.exit(1)
         if freq < 10:
             print('''Warning: Low frecuencies may cause that you will be
 blocked in pastebin.com server.''', file=sys.stderr)
