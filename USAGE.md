@@ -23,7 +23,8 @@ Execute `pbscrap -h` for inline help.
 
         $ pbscrap -i /home/user/myqueries
 
-The -q and -i options can be used simultaneously without problems.
+The -q and -i options can be used simultaneously without problems. All queries
+are case insensitive.
 
 ## Optional arguments
 
