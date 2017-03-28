@@ -11,7 +11,7 @@ Execute `pbscrap -h` for inline help.
     To indicate a list of queries. If a query consists of two words, you must
     enter quotation marks. In this way:
 
-    pbscrap -q aquery 'second multiword query'
+        $ pbscrap -q aquery 'second multiword query'
 
 * `-i` or `--infile`
     To indicate a file containing a list of queries. Each line in the file
