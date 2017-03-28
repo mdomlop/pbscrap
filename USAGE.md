@@ -49,6 +49,8 @@ are case insensitive.
 
     The program will try to create such a directory if it does not exist.
 
+    Without this option storing will be done in current directory.
+
 * `-v` or `--verbose`
     To print text by standard output.
 
