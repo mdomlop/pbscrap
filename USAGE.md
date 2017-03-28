@@ -17,11 +17,11 @@ Execute `pbscrap -h` for inline help.
     To indicate a file containing a list of queries. Each line in the file
     represents a query.
 
-        cat /home/user/myqueries
+        $ cat /home/user/myqueries
         aquery
         second multiword query
 
-        pbscrap -i /home/user/myqueries
+        $ pbscrap -i /home/user/myqueries
 
 The -q and -i options can be used simultaneously without problems.
 
