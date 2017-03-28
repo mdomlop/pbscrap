@@ -34,7 +34,7 @@ are case insensitive.
     Without this option the program will run only once. Otherwise it will
     remain in execution until you finish it manually.
 
-    To indicate the frequency in seconds indicates an integer greater than 0.
+    To set the frequency in seconds indicates an integer greater than 0.
     To do so in minutes add m to that number, h for hours and d to do it in days
 
     The program will print a warning if the frequency is very low, since in
