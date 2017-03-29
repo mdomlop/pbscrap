@@ -4,7 +4,7 @@
 
 	* src/pbscrap.py: Now findings are stored and logged in groups.
 
-    * src/pbscrap.py: No problems with OS directory separatos. Now you can
+    * src/pbscrap.py: No problems with OS directory separators. Now you can
     search for things like /etc/passwd
 
     * src/pbscrap.py: Minor optimizations.
