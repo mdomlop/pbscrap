@@ -97,51 +97,66 @@ def scrap(outdir, infile, queries):
         response = http.request('GET', rawlink)
         content = response.data.decode('utf-8')
 
+        # Lowercase versions for case insensitive search
+        _content = content.lower()
+        _title = title.lower()
+
+        findings = ''  # A string for storing founded queries
+
         for query in queries:
             _query = query.lower()
-            _content = content.lower()
-            _title = title.lower()
+
             if _query in _content or _query in _title:
-                hsum = hashlib.md5(content.encode('utf-8')).hexdigest()
+                findings += ' ' + _query
+        if findings:
+            # To avoid conficts with OS directory separators
+            findings_ = findings.replace(os.sep, '-')
+            findings_ = findings.strip()
+            # Uncomment this to allow copying files between the most common OS:
+            #findings_ = findings_.replace('/', '-')
+            #findings_ = findings_.replace('\\', '-')
 
-                fname = hsum
-                storedir = os.path.join(outdir, _query)
+            hsum = hashlib.md5(content.encode('utf-8')).hexdigest()
 
-                try:
-                    os.makedirs(storedir, exist_ok=True)
-                except PermissionError:
-                    print('Sorry, I can not make dir', storedir,
-                          'Permission denied',
-                          '\nExiting...')
-                    sys.exit(1)
-                except:
-                    print('Unexpected error:', sys.exc_info()[0])
-                    raise
+            fname = hsum
+            storedir = os.path.join(outdir, findings_)
 
-                outfile = os.path.join(storedir, fname)
-                if not os.path.isfile(outfile):
-                    with open(outfile, 'w') as f:
-                        f.write(content)
+            # Downloading raw post to disk:
+            try:
+                os.makedirs(storedir, exist_ok=True)
+            except PermissionError:
+                print('Sorry, I can not make dir', storedir,
+                        'Permission denied',
+                        '\nExiting...')
+                sys.exit(1)
+            except:
+                print('Unexpected error:', sys.exc_info()[0])
+                raise
 
-                    # Logging results as plain text:
-                    logfile = os.path.join(args.outdir, 'pcscrap.log')
-                    ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    logline = ts + ' ' + link + ' ' + hsum + ' '
-                    logline += _query + ' ' + title
-                    logline += '\n'
-                    if args.verbose:
-                        print(logline.rstrip())
-                    with open(logfile, 'a') as l:
-                        l.write(logline)
+            outfile = os.path.join(storedir, fname)
+            if not os.path.isfile(outfile):
+                with open(outfile, 'w') as f:
+                    f.write(content)
 
-                    # Logging results as html:
-                    htmlfile = os.path.join(args.outdir, 'pcscrap.html')
-                    htmlline = '<h3>' + ts + ': ' + _query + '</h3>\n'
-                    htmlline += '<ul>\n<li><a href="' + link
-                    htmlline += '" title="' + link
-                    htmlline += '">' + title + '</a></li>\n</ul>\n\n'
-                    with open(htmlfile, 'a') as h:
-                        h.write(htmlline)
+                # Logging results as plain text:
+                logfile = os.path.join(args.outdir, 'pcscrap.log')
+                ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                logline = ts + ' ' + link + ' ' + hsum + ' '
+                logline += findings + ' ' + title
+                logline += '\n'
+                if args.verbose:
+                    print(logline.rstrip())
+                with open(logfile, 'a') as l:
+                    l.write(logline)
+
+                # Logging results as html:
+                htmlfile = os.path.join(args.outdir, 'pcscrap.html')
+                htmlline = '<h3>' + ts + ': ' + findings + '</h3>\n'
+                htmlline += '<ul>\n<li><a href="' + link
+                htmlline += '" title="' + link
+                htmlline += '">' + title + '</a></li>\n</ul>\n\n'
+                with open(htmlfile, 'a') as h:
+                    h.write(htmlline)
 
 
 def toseconds(period):
