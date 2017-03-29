@@ -24,7 +24,7 @@ raw = url + '/raw'
 http = urllib3.PoolManager()
 
 # Default options:
-frequence = '-1'  # Frequecies as 10, 5m, 2h or 1d. Negatives means single shot
+frequence = None  # Frequecies as 10, 5m, 2h or 1d
 outdir = ''
 infile = None
 verbose = False
@@ -35,7 +35,6 @@ parser = argparse.ArgumentParser(
         description='A simple pastebin.com scraper'
         )
 
-#FIXME: Fails with -12m args as frequence
 parser.add_argument('-f', '--frequence', default=frequence,
                     help='Frequece in secs, mins, hours or days')
 parser.add_argument('-o', '--outdir', default=outdir,
@@ -128,12 +127,10 @@ def scrap(outdir, queries):
 
                 # Logging results as html:
                 htmlfile = os.path.join(args.outdir, 'pcscrap.html')
-                htmlline = '<h3>' + title + '</h3>\n'
+                htmlline = '<h3>' + ts + ': ' + findings + '</h3>\n'
                 htmlline += '<ul>\n<li><a href="' + link
                 htmlline += '" title="' + link
-                htmlline += '">' + findings + '</a></li>\n</ul>\n\n'
-                htmlline += '<p>' + ts + '</p>\n'
-                htmlline += '<hr />'
+                htmlline += '">' + title + '</a></li>\n</ul>\n\n'
                 with open(htmlfile, 'a') as h:
                     h.write(htmlline)
 
@@ -164,48 +161,44 @@ def toseconds(period):
     return(fperiod)
 
 
-def merge_queries():
+def merge_queries(afile=None, aline=None):
     ''' Merges queries from infile and from --query args.
     Removing duplicates. '''
-
     query = []
-    if args.query:
-        for i in args.query:
-            query.append(i)
-
-    if args.infile:
-        if not os.path.isfile(args.infile):
+    if aline:
+        query = aline
+    if afile:
+        if not os.path.isfile(afile):
             parser.print_help()
             print(
-                    '\nThe argument', args.infile,
-                    'is not a file.\nExiting...\n',
+                    '\nThe argument', afile, 'is not a file.\nExiting...\n',
                     file=sys.stderr
                     )
             sys.exit(1)
 
-        with open(args.infile, 'r') as i:
+        with open(afile, 'r') as i:
             for line in i.readlines():
-                # Skips blank lines but without removing trailing spaces:
                 if line and line.strip():
-                    query.append(line.rstrip('\n'))
+                    query.append(line.strip())
     if query:
-        query = set(query)  # Removing duplicates
-        return(query)
-    else:
         parser.print_help()
         print(
                 '\nI need at least one argument to query.\nExiting...\n',
                 file=sys.stderr
                 )
         sys.exit(1)
+    else:
+        query = set(query)  # Removing duplicates
+        return(query)
 
 
 # Executing at desired frequence:
-freq = toseconds(args.frequence)
-if freq < 0:
-    q = merge_queries()
-    scrap(args.outdir, q)
-else:
+if args.frequence:
+    freq = toseconds(args.frequence)
+    # Some warnings:
+    if freq < 1:
+        print('Sorry. Minimum frequence of execution is 1.\nExiting...\n')
+        sys.exit(1)
     if freq < 10:
         print('''Warning: Low frecuencies may cause that you will be
 blocked in pastebin.com server.''', file=sys.stderr)
@@ -217,6 +210,11 @@ blocked in pastebin.com server.''', file=sys.stderr)
         # The merging of infile and query in each instance of the loop allows
         # to edit infile during the execution and thus change the queries
         # dynamically without stopping the process.
-        q = merge_queries()
+        print(args.infile, args.query)
+        q = merge_queries(args.infile, args.query)
         scrap(args.outdir, q)
         time.sleep(freq)
+else:
+    print(args.infile, args.query)
+    q = merge_queries(args.infile, args.query)
+    scrap(args.outdir, q)
