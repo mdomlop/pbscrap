@@ -35,7 +35,7 @@ parser = argparse.ArgumentParser(
         description='A simple pastebin.com scraper'
         )
 
-#FIXME: Fails with -12m args as frequence
+# FIXME: Fails with -12m args as frequence
 parser.add_argument('-f', '--frequence', default=frequence,
                     help='Frequece in secs, mins, hours or days')
 parser.add_argument('-o', '--outdir', default=outdir,
