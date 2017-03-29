@@ -1,32 +1,7 @@
 #!/usr/bin/env python3
 # pbscrap.py: A simple pastebin.com scraper.
 
-# Version: 20170328
-
-'''
-Execution:
-
-pbscrap [-h] [-f FREQUENCE] [-o OUTDIR] [-q QUERY [QUERY ...]]
-               [-i INFILE] [-v]
-
-A simple pastebin.com scraper
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -f FREQUENCE, --frequence FREQUENCE
-  -o OUTDIR, --outdir OUTDIR
-  -q QUERY [QUERY ...], --query QUERY [QUERY ...]
-  -i INFILE, --infile INFILE
-  -v, --verbose
-
-Queries are case insensitive.
-
-It will store the results into a directory named as query word. The filename is
-a string corresponding with md5sum of content of link to avoid duplicates.
-
-Also a logfile will be writed as text and html. :-)
-
-'''
+# Version: 20170329
 
 import urllib3
 import re
@@ -113,8 +88,8 @@ def scrap(outdir, infile, queries):
             findings_ = findings.replace(os.sep, '-')
             findings_ = findings.strip()
             # Uncomment this to allow copying files between the most common OS:
-            #findings_ = findings_.replace('/', '-')
-            #findings_ = findings_.replace('\\', '-')
+            # findings_ = findings_.replace('/', '-')
+            # findings_ = findings_.replace('\\', '-')
 
             hsum = hashlib.md5(content.encode('utf-8')).hexdigest()
 
@@ -125,9 +100,10 @@ def scrap(outdir, infile, queries):
             try:
                 os.makedirs(storedir, exist_ok=True)
             except PermissionError:
-                print('Sorry, I can not make dir', storedir,
-                        'Permission denied',
-                        '\nExiting...')
+                print(
+                        'Sorry, I can not make dir', storedir,
+                        'Permission denied.\nExiting...\n'
+                        )
                 sys.exit(1)
             except:
                 print('Unexpected error:', sys.exc_info()[0])
