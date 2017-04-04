@@ -6,7 +6,7 @@ install:
 	install -Dm 755 src/$(NAME).py $(PREFIX)/bin/$(NAME)
 	install -Dm 644 LICENSE $(PREFIX)/share/licenses/$(NAME)/COPYING
 	install -Dm 644 BUGS.md $(PREFIX)/share/doc/$(NAME)/BUGS
-	install -Dm 644 ChangeLog.md $(PREFIX)/share/doc/$(NAME)/ChangeLog
+	install -Dm 644 ChangeLog $(PREFIX)/share/doc/$(NAME)/ChangeLog
 	install -Dm 644 README.md $(PREFIX)/share/doc/$(NAME)/README
 	install -Dm 644 USAGE.md $(PREFIX)/share/doc/$(NAME)/USAGE
 
