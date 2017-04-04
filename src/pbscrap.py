@@ -71,7 +71,15 @@ def scrap(outdir, queries):
         title = db[idcode]
 
         response = http.request('GET', rawlink)
-        content = response.data.decode('utf-8')
+        try:
+            content = response.data.decode('utf-8')
+        except UnicodeDecodeError:
+            print('Failed to decoding url:', rawlink, file=sys.stderr)
+            print('Maybe it is not a utf-8 file?')
+            print('DEBUG ME!')
+            with open('error.log', 'a') as e:
+                e.write('Error decoding:', rawlink)
+            continue
 
         # Lowercase versions for case insensitive search
         _content = content.lower()
