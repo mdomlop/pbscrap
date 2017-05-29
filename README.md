@@ -20,4 +20,4 @@ minutes, hours or days.
 If no output directory is specified, all these files will be written to the
 working directory from where the program was called.
 
-For more information read the [USAGE.md](https://github.com/manueldl/pbscrap/blob/master/USAGE.md) file.
+For more information read the [USAGE.md](https://github.com/mdomlop/pbscrap/blob/master/USAGE.md) file.
