@@ -1,0 +1,31 @@
+# Maintainer: Manuel Domínguez López <mdomlop at gmail dot com>
+
+_pkgver_year=2017
+_pkgver_month=07
+_pkgver_day=06
+
+_gitname=pbscrap
+pkgname=${_gitname}-git
+pkgver=local
+pkgrel=1
+pkgdesc="A simple pastebin.com scraper."
+arch=('any')
+url="https://github.com/mdomlop/${_gitname}"
+source=("${_gitname}.tar")
+md5sums=('SKIP')
+license=('GPL3')
+depends=('python>=3' 'python-urllib3')
+provides=(${_gitname})
+
+
+
+build() {
+    cd "${srcdir}/${_gitname}"
+    ./configure
+    make
+    }
+
+package() {
+    cd "${srcdir}/${_gitname}"
+    make install DESTDIR=${pkgdir}
+}
