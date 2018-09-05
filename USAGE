@@ -70,3 +70,4 @@ outputting files to `/tmp/OUTDIR`, every 1 hour, with verbose messages to
 terminal.
 
     $ pbscrap -q perl 'honey bunny' -f 1h -o /tmp/OUT -v -i /home/user/things
+

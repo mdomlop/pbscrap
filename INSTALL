@@ -1,26 +1,26 @@
-Install instructions
---------------------
+Installation
+------------
 
-- Install as usual:
+You can choose between different installation methods.
 
-        $ ./configure
+### Classic method ###
+
+- Build and install:
+
         $ make
         # make install
 
-- To Uninstall:
+- Uninstall:
 
         # make uninstall
 
-### Or for build a Arch Linux packgage:
+### Arch Linux package
 
-- Execute:
+- Build and install:
 
-        $ make pacman
+        $ make arch_pkg
+        # pacman -U @executable_name@-@version@-1--any.pkg.tar.xz
 
-- Or from remote github page:
+- Uninstall:
 
-        $ make pacman-remote
-
-- And then install:
-
-        # pacman -U pbscrap-*.pkg.xz
+        # pacman -Rsc snapman
